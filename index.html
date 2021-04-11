@@ -1,9 +1,51 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@chichabento 
+chichabento
+/
+zhong
+1
+00
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+zhong/index.html
+@chichabento
+chichabento Add files via upload
+…
+Latest commit d521691 4 days ago
+ History
+ 1 contributor
+873 lines (728 sloc)  30.5 KB
+  
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1.0">
-		<title>告白气球</title>
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>大笨❤️钟</title>
+
+<link rel='stylesheet' href='css/datouwang1.css' />
+<link rel='stylesheet' href='css/datouwang2.css' />
+<link rel='stylesheet' href='css/datouwang3.css' />
+<link rel='stylesheet' href='css/datouwang4.css' />
+
+<script type="text/javascript" src="js/datouwang1.js"></script>
+<script type="text/javascript" src="js/datouwang2.js"></script>
+<script type="text/javascript" src="js/datouwang3.js"></script>
+
 		<script type="text/javascript">
 			
 			window.onload = function(){
@@ -31,7 +73,7 @@
 					bo.appendChild(div);
 				}
 				
-				//var box1 = document.getElementById("box1");
+				var div = document.getElementById("content");
 				var btn01 = document.getElementById("btn01");
 				var btn02 = document.getElementById("btn02");
 				var bo = document.getElementById("bo");
@@ -150,16 +192,14 @@
 					},50);
 				};
 				
-				
-				
 				//开场23s开场白-->pro
 				//中间弹出的弹幕
-				var pro01 = new DanMu("pro01","未来的女朋友",100,50,"aqua");
-				var pro02 = new DanMu("pro02","我想了好久，今天鼓起勇气~~~",70,430,"#50aaec");
-				var pro03 = new DanMu("pro03","我一直想对你说...",80,160,"blueviolet");
-				var pro04 = new DanMu("pro04","亲爱的做我女朋友吧(^3^)~",100,275,"rgb(254,138,198)");
-				var pro05 = new DanMu("pro05","你说你有点难追~~",120,80,"aqua");
-				var pro06 = new DanMu("pro06","想让我知难而退~~",120,200,"rgb(236,89,204)");
+				var pro01 = new DanMu("pro01","我的宝贝钟玲",100,50,"aqua");
+				var pro02 = new DanMu("pro02","你说过想要从一束花来开始",70,430,"#50aaec");
+				var pro03 = new DanMu("pro03","但现在我只能这样给你了",80,160,"blueviolet");
+				var pro04 = new DanMu("pro04","亲爱的做我女朋友吧~",100,275,"rgb(254,138,198)");
+				var pro05 = new DanMu("pro05","",120,80,"aqua");
+				var pro06 = new DanMu("pro06","",120,200,"rgb(236,89,204)");
 				
 				//24s-->
 				var pro01_23 = new DanMu("pro01_23","亲爱的",120,50,"aqua");
@@ -172,28 +212,28 @@
 				
 				//23s到43s弹幕
 				var rig01 = new DanMu("rig01","可能我很笨",80,80,"aqua");
-				var left01 = new DanMu("left01","不知道什么才是喜欢上一个人",100,150,"rgb(236,89,204)");
-				var rig01_21 = new DanMu("rig01_21","可能智商有那么一点点高",100,500,"rgb(143,54,224)");
+				var left01 = new DanMu("left01","我知道我不会甜言蜜语",100,150,"rgb(236,89,204)");
+				var rig01_21 = new DanMu("rig01_21","但是我会用行动证明一切",100,500,"rgb(143,54,224)");
 				var objrig_21 = [rig01_21];
 				
 				
 				var rig01_23 = new DanMu("rig01_23","情商又低",100,80,"rgb(73,212,242)");
-				var left01_23 = new DanMu("left01_23","每次你经过我的时候..",100,200,"rgb(73,212,242)");
-				var rig02_23 = new DanMu("rig02_23","又胆小",100,400,"aqua");
-				var rig03_23 = new DanMu("rig03_23","我都会心跳加速..",100,300,"rgb(254,138,198)");
-				var rig04_23 = new DanMu("rig04_23","喜欢你但是不敢说出来..",100,80,"rgb(254,138,198)");
-				var left02_23 = new DanMu("left02_23","原谅我这么胆小..",100,180,"yellow");
-				var rig05_23 = new DanMu("rig05_23","也百度了很多情话",100,400,"rgb(254,138,198)");
-				var left03_23 = new DanMu("left03_23","但就是不敢说出来",100,300,"aqua");
+				var left01_23 = new DanMu("left01_23","",100,200,"rgb(73,212,242)");
+				var rig02_23 = new DanMu("rig02_23","",100,400,"aqua");
+				var rig03_23 = new DanMu("rig03_23","我会牵着你的手",100,300,"rgb(254,138,198)");
+				var rig04_23 = new DanMu("rig04_23","",100,80,"rgb(254,138,198)");
+				var left02_23 = new DanMu("left02_23","陪伴你一路精彩下去",100,180,"yellow");
+				var rig05_23 = new DanMu("rig05_23","",100,400,"rgb(254,138,198)");
+				var left03_23 = new DanMu("left03_23","守护你生命里的精彩",100,300,"aqua");
 				
 				var objrig_23 = [rig01_23,rig02_23,rig03_23,rig04_23,rig05_23];
 				var objleft_23 = [left01_23,left02_23,left03_23];
 				
 				//46s-->
-				var rig01_46 = new DanMu("rig01_46","好几次想写情书",100,80,"rgb(254,138,198)");
-				var left01_46 = new DanMu("left01_46","但是拿起笔又不敢写..",120,200,"rgb(226,250,4)");
+				var rig01_46 = new DanMu("rig01_46","想过很多种方式跟你表白",100,80,"rgb(254,138,198)");
+				var left01_46 = new DanMu("left01_46","但是拿起手机又不敢..",120,200,"rgb(226,250,4)");
 				var rig02_46 = new DanMu("rig02_46","但我就是喜欢你~",100,400,"rgb(254,138,198)");
-				var left02_46 = new DanMu("left02_46","不需要什么理由(^3^)~",100,520,"rgb(122,235,93)");
+				var left02_46 = new DanMu("left02_46","不需要什么理由",100,520,"rgb(122,235,93)");
 				
 				var objrig_46 = [rig01_46,rig02_46];
 				var objleft_46 = [left01_46,left02_46];
@@ -228,9 +268,9 @@
 				
 				//1.26-->
 				var love0101 = new DanMu("love0101","我真的喜欢你~",100,80,"rgb(113,254,236)");
-				var love0102 = new DanMu("love0102","好喜欢你怎么办~",120,350,"rgb(254,254,6)");
-				var love0103 = new DanMu("love0103","真的好喜欢你呀~",100,500,"rgb(3,220,81)");
-				var love0104 = new DanMu("love0104","超级喜欢你~",150,200,"rgb(254,138,198)");
+				var love0102 = new DanMu("love0102","能遇见你真好~",120,350,"rgb(254,254,6)");
+				var love0103 = new DanMu("love0103","真的喜欢你呀~",100,500,"rgb(3,220,81)");
+				var love0104 = new DanMu("love0104","能认识你真好~",150,200,"rgb(254,138,198)");
 				var love0201 = new DanMu("love0201","给你告白气球~~",100,180,"rgb(254,254,16)");
 				var love0202 = new DanMu("love0202","给你告白气球~~",150,300,"rgb(251,46,153)");
 				var love0203 = new DanMu("love0203","给你告白气球~~",100,500,"rgb(160,69,232)");
@@ -245,16 +285,16 @@
 				
 				//1.49s-->
 				var pro01_109 = new DanMu("pro01_109","亲爱的~",100,50,"rgb(254,138,198)");
-				var left01_109 = new DanMu("left01_109","在遇见你之前..",100,175,"rgb(248,234,65)");
-				var rig01_109 = new DanMu("rig01_109","我以为我是个钢铁直男",120,300,"rgb(175,129,238)");
-				var left02_109 = new DanMu("left02_109","很直的那种",80,450,"rgb(141,227,74)");
-				var rig04_109 = new DanMu("rig04_109","总以为那样很酷~",80,540,"rgb(170,209,242)");
+				var left01_109 = new DanMu("left01_109","我知道现在我们异地有点难",100,175,"rgb(248,234,65)");
+				var rig01_109 = new DanMu("rig01_109","但是我希望我们一起去克服",120,300,"rgb(175,129,238)");
+				var left02_109 = new DanMu("left02_109","我愿意为你去做每一件能让你开心快乐的事",80,450,"rgb(141,227,74)");
+				var rig04_109 = new DanMu("rig04_109","",80,540,"rgb(170,209,242)");
 				
-				var pro02_109 = new DanMu("pro02_109","但是呢~",100,50,"rgb(226,77,197)");
-				var rig02_109 = new DanMu("rig02_109","在遇见你之后..",100,175,"rgb(202,126,248)");
-				var left03_109 = new DanMu("left03_109","我突然想表现自己(^_^)~",120,300,"rgb(247,84,67)");
-				var rig03_109 = new DanMu("rig03_109","想让你注意到我~",80,450,"rgb(157,197,239)");
-				var left04_109 = new DanMu("left04_109","哪怕一点点也好~~",80,540,"rgb(165,242,2)");
+				var pro02_109 = new DanMu("pro02_109","我会带你去所有你想去的地方",100,50,"rgb(226,77,197)");
+				var rig02_109 = new DanMu("rig02_109","历经你生命中所有的点点滴滴",100,175,"rgb(202,126,248)");
+				var left03_109 = new DanMu("left03_109","",120,300,"rgb(247,84,67)");
+				var rig03_109 = new DanMu("rig03_109","陪你闹",80,450,"rgb(157,197,239)");
+				var left04_109 = new DanMu("left04_109","看你笑",80,540,"rgb(165,242,2)");
 				
 				var objrig_109 = [rig01_109,rig02_109,rig03_109,rig04_109];
 				var objleft_109 = [left01_109,left02_109,left03_109,left04_109];
@@ -262,14 +302,14 @@
 				
 				
 				//2.16s-->
-				var rig01_136 = new DanMu("rig01_136","每次遇见你~",100,80,"rgb(73,212,242)");
+				var rig01_136 = new DanMu("rig01_136","我经常梦见你",100,80,"rgb(73,212,242)");
 				var left01_136 = new DanMu("left01_136","有好多次脑海中..",100,200,"rgb(73,212,242)");
-				var rig02_136 = new DanMu("rig02_136","我就怂了(QAQ)",100,400,"aqua");
+				var rig02_136 = new DanMu("rig02_136","",100,400,"aqua");
 				var rig03_136 = new DanMu("rig03_136","都幻想着能和你一起约会~",100,300,"rgb(254,138,198)");
-				var rig04_136 = new DanMu("rig04_136","只要能和你在一起~",100,80,"rgb(254,138,198)");
-				var left02_136 = new DanMu("left02_136","我就特别开心",100,180,"yellow");
-				var rig05_136 = new DanMu("rig05_136","但是一遇见你~",100,400,"rgb(254,138,198)");
-				var left03_136 = new DanMu("left03_136","我居然怂了(QAQ)",100,300,"aqua");
+				var rig04_136 = new DanMu("rig04_136","",100,80,"rgb(254,138,198)");
+				var left02_136 = new DanMu("left02_136","",100,180,"yellow");
+				var rig05_136 = new DanMu("rig05_136","",100,400,"rgb(254,138,198)");
+				var left03_136 = new DanMu("left03_136","",100,300,"aqua");
 				
 				var objrig_136 = [rig01_136,rig02_136,rig03_136,rig04_136,rig05_136];
 				var objleft_136 = [left01_136,left02_136,left03_136];
@@ -301,7 +341,7 @@
 				
 				//140s-->
 				var pro01_140 = new DanMu("pro01_140","对我来说~",100,50,"rgb(156,198,238)");
-				var rig01_140 = new DanMu("rig01_140","拥有你(^3^)~",120,200,"rgb(184,140,237)");
+				var rig01_140 = new DanMu("rig01_140","拥有你~",120,200,"rgb(184,140,237)");
 				var left01_140 = new DanMu("left01_140","就拥有全世界",150,330,"rgb(246,158,204)");
 				
 				var objrig_140 = [rig01_140];
@@ -312,8 +352,8 @@
 				
 				//finally-->
 				var pro01_final = new DanMu("pro01_final","亲爱的~",100,50,"rgb(237,83,156)");
-				var rig01_final = new DanMu("rig01_final","有时候我经常盯着你~",100,200,"rgb(199,119,252)");
-				var left01_final = new DanMu("left01_final","那是因为我喜欢你(^3^)~",100,350,"rgb(221,249,7)");
+				var rig01_final = new DanMu("rig01_final","视频的时候我太紧张~",100,200,"rgb(199,119,252)");
+				var left01_final = new DanMu("left01_final","那是因为我喜欢你🤦‍♂️~",100,350,"rgb(221,249,7)");
 				
 				var objpro_final = [pro01_final];
 				var objrig_final = [rig01_final];
@@ -453,7 +493,7 @@
 					
 					var timer;
 					//点击开始弹幕按钮
-					btn01.onclick = function(){
+					div.addEventListener('click', function (event) {
 						
 						//播放音乐
 						audio.play();
@@ -735,7 +775,7 @@
 						//43s
 						//popup(pro05,44,49);
 						//popup(pro06,47,49);
-					};
+					});
 					
 					//点击停止弹幕按钮
 					btn02.onclick = function(){
@@ -773,17 +813,101 @@
 			}
 					
 		</style>
-	</head>
-	<body id="bo">
-		<!-- http://www.170mv.com/kw/antiserver.kuwo.cn/anti.s?rid=MUSIC_7149583&response=res&format=mp3|aac&type=convert_url&br=128kmp3&agent=iPhone&callback=getlink&jpcallback=getlink.mp3 -->
 
+</head>
+<body id="bo">
+	<div id='head'>
 		<audio id="audios" src="./balloon.mp3" controls="controls"></audio>
 		<!-- <audio id="audios" src="http://www.170mv.com/kw/antiserver.kuwo.cn/anti.s?rid=MUSIC_7149583&response=res&format=mp3|aac&type=convert_url&br=128kmp3&agent=iPhone&callback=getlink&jpcallback=getlink.mp3" controls="controls"></audio> -->
 		<button id="btn01">开始弹幕</button>
 		<button id="btn02">停止弹幕</button>
-		<div id="divbox" style="width: 100%;">
-			<canvas id="c"></canvas>   
-<script>   var c = document.getElementsByTagName('canvas')[0];var a = c.getContext('2d');    </script>  <script>e=[];h=[];O=c.width=innerWidth;Q=c.height=innerHeight;v=32;M=Math;R=M.random;C=M.cos;Y=6.3;for(i=0;i<Y;i+=0.2)h.push([O/2+180*M.pow(M.sin(i),3),Q/2+10*-(15*C(i)-5*C(2*i)-2*C(3*i)-C(4*i))]); for(i=0;i<v;){x=R()*O;y=R()*Q;H=80*(i/v)+280;S=40*R()+60;B=60*R()+20;f=[];for(k=0;k<v;)f[k++]={x:x,y:y,X:0,Y:0,R:1-k/v+1,S:R()+1,q:~~(R()*v),D:2*(i%2)-1,F:0.2*R()+0.7,f:"hsla("+~~H+","+~~S+"%,"+~~B+"%,.1)"};e[i++]=f}function _(d){a.fillStyle=d.f;a.beginPath();a.arc(d.x,d.y,d.R,0,Y,1);a.closePath();a.fill()}setInterval(function(){a.fillStyle="rgba(0,0,0,.2)";a.fillRect(0,0,O,Q);for(i=v;i--;){f=e[i];u=f[0];q=h[u.q];D=u.x-q[0];E=u.y-q[1];G=M.sqrt(D*D+E*E);10>G&&(0.95<R()?u.q=~~(R()*v):(0.99<R()&&(u.D*=-1),u.q+=u.D,u.q%=v,0>u.q&&(u.q+=v)));u.X+=-D/G*u.S;u.Y+=-E/G*u.S;u.x+=u.X;u.y+=u.Y;_(u);u.X*=u.F;u.Y*=u.F;for(k=0;k<v-1;)T=f[k],N=f[++k],N.x-=0.7*(N.x-T.x),N.y-=0.7*(N.y-T.y),_(N)}},25);</script> 
-		</div>
-	</body>
+	</div>
+<!-- 代码 开始 -->
+<div id='content'>
+
+    <ul class='content-wrap'>
+        <!-- 第一副画面 -->
+        <li>
+            <!-- 背景图 -->
+            <div class="a_background">
+                <div class="a_background_top"></div>
+                <div class="a_background_middle"></div>
+                <div class="a_background_botton"></div>
+            </div>
+            <!-- 云 -->
+            <div class="cloudArea">
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+            </div>
+            <!-- 太阳 -->
+            <div id="sun"></div>
+        </li>
+        <!-- 第二副画面 -->
+        <li>
+            <!-- 背景图 -->
+            <div class="b_background"></div>
+            <div class="b_background_preload"></div>
+            <!-- 商店 -->
+            <div class="shop">
+                <div class="door">
+                    <div class="door-left"></div>
+                    <div class="door-right"></div>
+                </div>
+                <!-- 灯 -->
+                <div class="lamp"></div>
+            </div>
+            <!-- 鸟 -->
+            <div class="bird"></div>
+        </li>
+        <!-- 第三副画面 -->
+        <li>
+            <!-- 背景图 -->
+            <div class="c_background">
+                <div class="c_background_top"></div>
+                <div class="c_background_middle"></div>
+                <div class="c_background_botton"></div>
+            </div>
+            <!-- 小女孩 -->
+            <div class="girl"></div>
+            <div class="bridge-bottom">
+                <div class="water">
+                    <div id="water1" class="water_1"></div>
+                    <div id="water2" class="water_2"></div>
+                    <div id="water3" class="water_3"></div>
+                    <div id="water4" class="water_4"></div>
+                </div>
+            </div>
+            <!-- 星星 -->
+            <ul class="stars">
+                <li class="stars1"></li>
+                <li class="stars2"></li>
+                <li class="stars3"></li>
+                <li class="stars4"></li>
+                <li class="stars5"></li>
+                <li class="stars6"></li>
+            </ul>
+            <!-- 慕课网logo图 -->
+            <div class="logo"><p>钟玲~ 可以做我女朋友</p> <p>让大笨钟继续走下去吗?</p></div>
+        </li>
+    </ul>
+    <!-- 雪花 -->
+    <div id="snowflake"></div>
+    <!-- 小男孩 -->
+    <div id="boy" class="charector"></div>
+</div>
+<!-- 代码 结束 -->
+</body>
 </html>
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete
