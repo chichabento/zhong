@@ -1,35 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@chichabento 
-chichabento
-/
-zhong
-1
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-zhong/index.html
-@chichabento
-chichabento Add files via upload
-…
-Latest commit d521691 4 days ago
- History
- 1 contributor
-873 lines (728 sloc)  30.5 KB
-  
 <!DOCTYPE html>
 <html>
 
@@ -46,774 +14,784 @@ Latest commit d521691 4 days ago
 <script type="text/javascript" src="js/datouwang2.js"></script>
 <script type="text/javascript" src="js/datouwang3.js"></script>
 
-		<script type="text/javascript">
-			
-			window.onload = function(){
-				
-				//创建一个类DanMu
-				function DanMu(name,str,size,top,color){
-					this.name = name;
-					this.str = str;
-					this.size = size;
-					this.top = top;
-					this.color = color;
-					//同时创建一个div
-					var bo = document.getElementById("bo");
-					var div = document.createElement("div");
-					div.id = this.name;
-					div.innerHTML = str;
-					div.style.color = this.color;
-					div.style.fontSize = size + "px";
-					div.style.top = top + "px";
-					div.style.whiteSpace = "nowrap";
-					div.style.fontFamily = "simhei,arial,helvetica,sans-serif";
-					div.style.fontWeight = "bold";
-					div.style.position = "absolute";
-					//div.style.left = 0 - div.offsetWidth + "px";
-					bo.appendChild(div);
-				}
-				
-				var div = document.getElementById("content");
-				var btn01 = document.getElementById("btn01");
-				var btn02 = document.getElementById("btn02");
-				var bo = document.getElementById("bo");
-				var img = document.getElementById("img");
-				//img.style.width = document.body.clientWidth;
-				bo.style.offsetWidth = 0 + "px";
-				
-				//控制音乐
-				var audio = document.getElementById("audios");
-				
-				//延时函数
-				function delay(time){
-					var count = 0;
-					var timetor = setInterval(function(){
-						count++;
-						if(count > time){
-							clearInterval(timetor);
-						}
-					},1000);
-				};
-				
-				//弹出函数
-				function popup(obj,time){
-					var count = 0;
-					var timetor = setInterval(function(){
-						count++;
-						//console.log(count);
-						if(count <= time){
-							document.getElementById(obj.name).style.left = document.body.offsetWidth/2 - document.getElementById(obj.name).offsetWidth/2 + "px";
-						}else{
-							document.getElementById(obj.name).style.left =  0 - document.getElementById(obj.name).offsetWidth + "px";
-							clearInterval(timetor);
-						}
-					},1000);
-				};
-				
-				//向右移动弹幕
-				function rightMove(obj,time){
-					var count = 0;
-					var len = parseInt((2*document.getElementById(obj.name).offsetWidth + document.body.offsetWidth)/(time*20))+1;
-					var timetor = setInterval(function(){
-						count++;
-						//console.log("rightcount = "+count);
-						if(parseInt(document.getElementById(obj.name).style.left) <= document.body.offsetWidth + document.getElementById(obj.name).offsetWidth){
-							document.getElementById(obj.name).style.left = count*len - document.getElementById(obj.name).offsetWidth + "px";
-							//console.log("right = "+document.getElementById(obj.name).style.left);
-							//console.log(document.getElementById(obj.name).style.left);
-						}else if(parseInt(document.getElementById(obj.name).style.left) > document.body.offsetWidth + document.getElementById(obj.name).offsetWidth){
-							document.getElementById(obj.name).style.left =  0 - document.getElementById(obj.name).offsetWidth + "px";
-							//console.log("right = "+document.getElementById(obj.name).style.left);
-							clearInterval(timetor);
-						}else{
-							document.getElementById(obj.name).style.left =  0 - document.getElementById(obj.name).offsetWidth + "px";
-							//console.log("right = "+document.getElementById(obj.name).style.left);
-						}
-					},50);
-				};
-				//全部向右移动弹幕
-				function rightAllMove(obj,time){
-					var count = 0;
-					var len = parseInt((2*document.getElementById(obj.name).offsetWidth + document.body.offsetWidth)/(time*20))+1;
-					var timetor = setInterval(function(){
-						count++;
-						for(var i=0;i<obj.length;i++){
-							if(count*50 <= time*1000){
-								document.getElementById(obj[i].name).style.left = count*len - document.getElementById(obj[i].name).offsetWidth + "px";
-								console.log(document.getElementById(obj[i].name).style.left);
-							}else{
-								document.getElementById(obj[i].name).style.left =  0 - document.getElementById(obj[i].name).offsetWidth + "px";
-								clearInterval(timetor);
-							}
-						}
-					},50);
-				};
-				
-				
-				//向左移动的弹幕
-				function leftMove(obj,time){
-					var count = 0;
-					var len = parseInt((2*document.getElementById(obj.name).offsetWidth + document.body.offsetWidth)/(time*20))+1;
-					console.log(len);
-					var timetor = setInterval(function(){
-						count++;
-						//console.log("leftcount = "+count);
-						if(parseInt(document.getElementById(obj.name).style.left) >= 0 - 2*document.body.offsetWidth){
-							document.getElementById(obj.name).style.left = document.body.offsetWidth - count*len + "px";
-							//console.log("left = "+document.getElementById(obj.name).style.left);
-						}else if(parseInt(document.getElementById(obj.name).style.left) < 0 - 2*document.body.offsetWidth){
-							document.getElementById(obj.name).style.left = document.body.offsetWidth + "px";
-							//console.log("left = "+document.getElementById(obj.name).style.left);
-							clearInterval(timetor);
-						}else{
-							document.getElementById(obj.name).style.left = document.body.offsetWidth + "px";
-							//console.log("left = "+document.getElementById(obj.name).style.left);
-						}
-					},50);
-				};
-				//全部向左移动弹幕
-				function leftAllMove(obj,time){
-					var count = 0;
-					var len = parseInt((2*document.getElementById(obj.name).offsetWidth + document.body.offsetWidth)/(time*20))+1;
-					var timetor = setInterval(function(){
-						count++;
-						//console.log("leftcount = "+count);
-						for(var i=0;i<obj.length;i++){
-							if(count*50 <= time*1000){
-								document.getElementById(obj[i].name).style.left = document.body.offsetWidth - count*len + "px";
-								//console.log("left = "+document.getElementById(obj.name).style.left);
-								//console.log(document.getElementById(obj[i].name).style.left);
-							}else{
-								document.getElementById(obj[i].name).style.left = document.body.offsetWidth + "px";
-								//console.log("left = "+document.getElementById(obj.name).style.left);
-								clearInterval(timetor);
-							}
-						}
-					},50);
-				};
-				
-				//开场23s开场白-->pro
-				//中间弹出的弹幕
-				var pro01 = new DanMu("pro01","我的宝贝钟玲",100,50,"aqua");
-				var pro02 = new DanMu("pro02","你说过想要从一束花来开始",70,430,"#50aaec");
-				var pro03 = new DanMu("pro03","但现在我只能这样给你了",80,160,"blueviolet");
-				var pro04 = new DanMu("pro04","亲爱的做我女朋友吧~",100,275,"rgb(254,138,198)");
-				var pro05 = new DanMu("pro05","",120,80,"aqua");
-				var pro06 = new DanMu("pro06","",120,200,"rgb(236,89,204)");
-				
-				//24s-->
-				var pro01_23 = new DanMu("pro01_23","亲爱的",120,50,"aqua");
-				var pro02_23 = new DanMu("pro02_23","LOVE",250,180,"rgb(254,138,198)");
-				var pro03_23 = new DanMu("pro03_23","I",250,180,"rgb(230,86,210)");
-				var pro04_23 = new DanMu("pro04_23","U",250,180,"rgb(230,86,210)");
-				
-				var objpro_23 = [pro01_23,pro02_23,pro03_23,pro04_23];
-				
-				
-				//23s到43s弹幕
-				var rig01 = new DanMu("rig01","可能我很笨",80,80,"aqua");
-				var left01 = new DanMu("left01","我知道我不会甜言蜜语",100,150,"rgb(236,89,204)");
-				var rig01_21 = new DanMu("rig01_21","但是我会用行动证明一切",100,500,"rgb(143,54,224)");
-				var objrig_21 = [rig01_21];
-				
-				
-				var rig01_23 = new DanMu("rig01_23","情商又低",100,80,"rgb(73,212,242)");
-				var left01_23 = new DanMu("left01_23","",100,200,"rgb(73,212,242)");
-				var rig02_23 = new DanMu("rig02_23","",100,400,"aqua");
-				var rig03_23 = new DanMu("rig03_23","我会牵着你的手",100,300,"rgb(254,138,198)");
-				var rig04_23 = new DanMu("rig04_23","",100,80,"rgb(254,138,198)");
-				var left02_23 = new DanMu("left02_23","陪伴你一路精彩下去",100,180,"yellow");
-				var rig05_23 = new DanMu("rig05_23","",100,400,"rgb(254,138,198)");
-				var left03_23 = new DanMu("left03_23","守护你生命里的精彩",100,300,"aqua");
-				
-				var objrig_23 = [rig01_23,rig02_23,rig03_23,rig04_23,rig05_23];
-				var objleft_23 = [left01_23,left02_23,left03_23];
-				
-				//46s-->
-				var rig01_46 = new DanMu("rig01_46","想过很多种方式跟你表白",100,80,"rgb(254,138,198)");
-				var left01_46 = new DanMu("left01_46","但是拿起手机又不敢..",120,200,"rgb(226,250,4)");
-				var rig02_46 = new DanMu("rig02_46","但我就是喜欢你~",100,400,"rgb(254,138,198)");
-				var left02_46 = new DanMu("left02_46","不需要什么理由",100,520,"rgb(122,235,93)");
-				
-				var objrig_46 = [rig01_46,rig02_46];
-				var objleft_46 = [left01_46,left02_46];
-				
-				//50s-->
-				var rig01_50 = new DanMu("rig01_50","拥有你就拥有全世界",100,400,"rgb(184,140,237)");
-				var left01_50 = new DanMu("left01_50","拥有你就拥有全世界",80,500,"rgb(254,138,198)");
-				
-				var objrig_50 = [rig01_50];
-				var objleft_50 = [left01_50];
-				
-				//55s-->
-				var rig01_55 = new DanMu("rig01_55","就拥有全世界",100,150,"rgb(184,140,237)");
-				var left01_55 = new DanMu("left01_55","你就是全世界",100,520,"rgb(184,140,237)");
-				
-				var objrig_55 = [rig01_55];
-				var objleft_55 = [left01_55];
-				
-				//58s-->
-				var rig01_58 = new DanMu("rig01_58","你就是我的全世界~",80,410,"rgb(254,138,198)");
-				var rig02_58 = new DanMu("rig02_58","你就是我的唯一~",100,80,"rgb(229,79,153)");
-				var left01_58 = new DanMu("left01_58","全世界",100,150,"aqua");
-				var left02_58 = new DanMu("left02_58","就拥有全世界",80,350,"rgb(254,252,43)");
-				
-				var objrig_58 = [rig01_58,rig02_58];
-				var objleft_58 = [left01_58,left02_58];
-				
-				//1.00-->1.05
-				var pro07 = new DanMu("pro07","我的心在告诉我~",100,20,"aqua");
-				var rig02 = new DanMu("rig02","拥有你",130,150,"rgb(184,140,237)");
-				var left02 = new DanMu("left02","就拥有全世界",120,250,"rgb(246,158,204)");
-				
-				//1.26-->
-				var love0101 = new DanMu("love0101","我真的喜欢你~",100,80,"rgb(113,254,236)");
-				var love0102 = new DanMu("love0102","能遇见你真好~",120,350,"rgb(254,254,6)");
-				var love0103 = new DanMu("love0103","真的喜欢你呀~",100,500,"rgb(3,220,81)");
-				var love0104 = new DanMu("love0104","能认识你真好~",150,200,"rgb(254,138,198)");
-				var love0201 = new DanMu("love0201","给你告白气球~~",100,180,"rgb(254,254,16)");
-				var love0202 = new DanMu("love0202","给你告白气球~~",150,300,"rgb(251,46,153)");
-				var love0203 = new DanMu("love0203","给你告白气球~~",100,500,"rgb(160,69,232)");
-				var love0204 = new DanMu("love0204","给你告白气球~~",120,30,"rgb(123,229,81)");
-				/* var love0301 = new DanMu("love0301","快点喜欢我吧(^3^)",70,50,"aqua");
-				var love0302 = new DanMu("love0302","快点喜欢我吧(^3^)",70,150,"rgb(252,0,255)");
-				var love0303 = new DanMu("love0303","快点喜欢我吧(^3^)",70,350,"blueviolet");
-				var love0304 = new DanMu("love0304","快点喜欢我吧(^3^)",70,250,"rgb(236,89,204)"); */
-				var objriglove = [love0101,love0102,love0201,love0203];
-				var objleftlove = [love0103,love0104,love0202,love0204];
-				
-				
-				//1.49s-->
-				var pro01_109 = new DanMu("pro01_109","亲爱的~",100,50,"rgb(254,138,198)");
-				var left01_109 = new DanMu("left01_109","我知道现在我们异地有点难",100,175,"rgb(248,234,65)");
-				var rig01_109 = new DanMu("rig01_109","但是我希望我们一起去克服",120,300,"rgb(175,129,238)");
-				var left02_109 = new DanMu("left02_109","我愿意为你去做每一件能让你开心快乐的事",80,450,"rgb(141,227,74)");
-				var rig04_109 = new DanMu("rig04_109","",80,540,"rgb(170,209,242)");
-				
-				var pro02_109 = new DanMu("pro02_109","我会带你去所有你想去的地方",100,50,"rgb(226,77,197)");
-				var rig02_109 = new DanMu("rig02_109","历经你生命中所有的点点滴滴",100,175,"rgb(202,126,248)");
-				var left03_109 = new DanMu("left03_109","",120,300,"rgb(247,84,67)");
-				var rig03_109 = new DanMu("rig03_109","陪你闹",80,450,"rgb(157,197,239)");
-				var left04_109 = new DanMu("left04_109","看你笑",80,540,"rgb(165,242,2)");
-				
-				var objrig_109 = [rig01_109,rig02_109,rig03_109,rig04_109];
-				var objleft_109 = [left01_109,left02_109,left03_109,left04_109];
-				var objpro_109 = [pro01_109,pro02_109];
-				
-				
-				//2.16s-->
-				var rig01_136 = new DanMu("rig01_136","我经常梦见你",100,80,"rgb(73,212,242)");
-				var left01_136 = new DanMu("left01_136","有好多次脑海中..",100,200,"rgb(73,212,242)");
-				var rig02_136 = new DanMu("rig02_136","",100,400,"aqua");
-				var rig03_136 = new DanMu("rig03_136","都幻想着能和你一起约会~",100,300,"rgb(254,138,198)");
-				var rig04_136 = new DanMu("rig04_136","",100,80,"rgb(254,138,198)");
-				var left02_136 = new DanMu("left02_136","希望我们能快点见面",100,180,"yellow");
-				var rig05_136 = new DanMu("rig05_136","莫PUA快给我开边境!!!",100,400,"rgb(254,138,198)");
-				var left03_136 = new DanMu("left03_136","",100,300,"aqua");
-				
-				var objrig_136 = [rig01_136,rig02_136,rig03_136,rig04_136,rig05_136];
-				var objleft_136 = [left01_136,left02_136,left03_136];
-				
-				
-				//添加弹幕,右方向弹幕或者左方向弹幕
-				var box1 = new DanMu("box1","亲爱的~",100,30,"aqua");
-				var box2 = new DanMu("box2","爱上你~",150,150,"rgb(236,89,204)");
-				var box3 = new DanMu("box3","从那天起~~",100,500,"blueviolet");
-				var box4 = new DanMu("box4","甜蜜的很轻易~~",150,330,"yellow");
-				var box5 = new DanMu("box5","亲爱的~",120,70,"rgb(254,252,43)");
-				var box6 = new DanMu("box6","别任性~",100,390,"rgb(0,255,255)");
-				var box7 = new DanMu("box7","你的眼睛~~",100,530,"rgb(166,241,0)");
-				var box8 = new DanMu("box8","在说我愿意~~",150,200,"rgb(236,89,204)");
-				var objr4 = [box1,box2,box3,box4];
-				var objl4 = [box5,box6,box7,box8];
-				
-				//2.52
-				var box101 = new DanMu("box101","亲爱的~",100,30,"aqua");
-				var box201 = new DanMu("box201","爱上你~",150,150,"rgb(236,89,204)");
-				var box301 = new DanMu("box301","恋爱日记~~",100,500,"blueviolet");
-				var box401 = new DanMu("box401","飘香水的记忆(^-^)~~",150,330,"yellow");
-				var box501 = new DanMu("box501","你中意~",120,70,"rgb(254,252,43)");
-				var box601 = new DanMu("box601","的梦境~",100,390,"rgb(0,255,255)");
-				var box701 = new DanMu("box701","全都有你~~",100,530,"rgb(166,241,0)");
-				var box801 = new DanMu("box801","搅拌在一起😘~~",150,200,"rgb(236,89,204)");
-				var objr401 = [box101,box201,box301,box401];
-				var objl401 = [box501,box601,box701,box801];
-				
-				//140s-->
-				var pro01_140 = new DanMu("pro01_140","对我来说~",100,50,"rgb(156,198,238)");
-				var rig01_140 = new DanMu("rig01_140","拥有你~",120,200,"rgb(184,140,237)");
-				var left01_140 = new DanMu("left01_140","就拥有全世界",150,330,"rgb(246,158,204)");
-				
-				var objrig_140 = [rig01_140];
-				var objleft_140 = [left01_140];
-				var objpro_140 = [pro01_140];
-				
-				//console.log(document.getElementById("box1").offsetWidth);
-				
-				//finally-->
-				var pro01_final = new DanMu("pro01_final","亲爱的~",100,50,"rgb(237,83,156)");
-				var rig01_final = new DanMu("rig01_final","视频的时候我太紧张🤦‍♂️~",100,200,"rgb(199,119,252)");
-				var left01_final = new DanMu("left01_final","那是因为我喜欢你❤️~",100,350,"rgb(221,249,7)");
-				
-				var objpro_final = [pro01_final];
-				var objrig_final = [rig01_final];
-				var objleft_final = [left01_final];
-				
-				
-				//定义右方向弹幕
-				var obj1 = [box1,box2,box3,box4,rig01,rig02];
-				
-				//取右方向弹幕的最长弹幕
-				var rightmax = 0;
-				for(var i=0;i<obj1.length-1;i++){
-					rightmax = document.getElementById(obj1[0].name).offsetWidth;
-					if(document.getElementById(obj1[i].name).offsetWidth < document.getElementById(obj1[i+1].name).offsetWidth){
-						rightmax = document.getElementById(obj1[i+1].name).offsetWidth;
-					}
-				}
-				//取右方向最短弹幕
-				var rightmin = 0;
-				for(var i=0;i<obj1.length-1;i++){
-					rightmin = document.getElementById(obj1[0].name).offsetWidth;
-					if(document.getElementById(obj1[i].name).offsetWidth > document.getElementById(obj1[i+1].name).offsetWidth){
-						rightmin = document.getElementById(obj1[i+1].name).offsetWidth;
-					}
-				}
-				/* console.log(rightmax);
-				console.log(rightmin);
-				console.log(rightmax-rightmin); */
-				
-				
-				//定义左方向弹幕
-				var obj2 = [box5,box6,box7,box8,left01,left02];
-				
-				//取左方向最长的弹幕
-				var leftmax = 0;
-				for(var i=0;i<obj2.length-1;i++){
-					leftmax = document.getElementById(obj2[0].name).offsetWidth;
-					if(document.getElementById(obj2[i].name).offsetWidth < document.getElementById(obj2[i+1].name).offsetWidth){
-						leftmax = document.getElementById(obj2[i+1].name).offsetWidth;
-					}
-				}
-				//取左方向最短弹幕
-				var leftmin = 0;
-				for(var i=0;i<obj2.length-1;i++){
-					leftmin = document.getElementById(obj2[0].name).offsetWidth;
-					if(document.getElementById(obj2[i].name).offsetWidth > document.getElementById(obj2[i+1].name).offsetWidth){
-						leftmin = document.getElementById(obj2[i+1].name).offsetWidth;
-					}
-				}
-				/* console.log(leftmax);
-				console.log(leftmin);
-				console.log(leftmax-leftmin); */
-				
-				//定义中间弹幕
-				var obj3 = [pro01,pro02,pro03,pro04,pro05,pro06,pro07];
-				
-				//创建一个总弹幕数组来封装右方向弹幕和左方向弹幕
-				var obj = [obj1,obj2,obj3];
-				
-				//设置按钮位置
-				btn01.style.left = document.body.clientWidth/2 - btn01.clientWidth + "px";
-				//btn01.style.top = document.body.clientHeight - btn01.clientHeight + "px";
-				btn02.style.left = document.body.clientWidth/2 + "px";
-				
-				//初始化函数
-				//初始化右方向弹幕
-				function initright(obj){
-					for(var i=0;i<obj.length;i++){
-						document.getElementById(obj[i].name).style.marginLeft = 0 - document.getElementById(obj[i].name).offsetWidth + "px";
-						//console.log(document.getElementById(obj[i].name).style.marginLeft);
-					}
-				};
-				
-				//初始化左方向弹幕
-				function initleft(obj){
-					for(var i=0;i<obj.length;i++){
-						document.getElementById(obj[i].name).style.marginLeft = document.body.offsetWidth + "px";
-						//console.log(document.getElementById(obj[i].name).style.marginLeft);
-					}
-				};
-				
-				//初始化中间弹出的弹幕
-				function initmid(obj){
-					for(var i=0;i<obj.length;i++){
-						document.getElementById(obj[i].name).style.left = 0 - document.getElementById(obj[i].name).offsetWidth + "px";
-					}
-				};
-				
-				//***********************************************************************
-				
-				
-				//定义弹幕函数
-				function danmuMove(obj){
-					
-					//初始化弹幕
-					initright(obj[0]);
-					initleft(obj[1]);
-					initmid(obj[2]);
-					initright(objr4);
-					initleft(objl4);
-					initright(objrig_23);
-					initleft(objleft_23);
-					initright(objrig_21);
-					initright(objrig_46);
-					initleft(objleft_46);
-					
-					initright(objrig_50);
-					initleft(objleft_50);
-					
-					initright(objrig_55);
-					initleft(objleft_55);
-					
-					initright(objrig_58);
-					initleft(objleft_58);
-					initmid(objpro_23);
-					
-					initright(objriglove);
-					initleft(objleftlove);
-					
-					initright(objrig_109);
-					initleft(objleft_109);
-					initmid(objpro_109);
-					
-					initright(objrig_136);
-					initleft(objleft_136);
-					
-					initright(objrig_140);
-					initleft(objleft_140);
-					initmid(objpro_140);
-					
-					initright(objr401);
-					initleft(objl401);
-					
-					initright(objrig_final);
-					initleft(objleft_final);
-					initmid(objpro_final);
-					
-					var timer;
-					//点击开始弹幕按钮
-					div.addEventListener('click', function (event) {
-						
-						//播放音乐
-						audio.play();
-						
-						clearInterval(timer);
-						
-						var count1 = 0;
-						var count2 = 0;
-						var count = 0;
-						
-						timer = setInterval(function(){
-							
-							count++;
-							
-							switch(count){
-								
-								//开场前23s开场白
-								case 3:
-								popup(pro01,20);
-								break;
-								case 8:
-								popup(pro02,15);
-								break;
-								case 15:
-								popup(pro03,8);
-								break;
-								case 20:
-								popup(pro04,3);
-								break;
-								
-								//24s-->42s
-								//会有小延迟,要提前3s
-								case 21:
-								rightMove(rig01,19);
-								leftMove(left01,19);
-								break;
-								
-								case 23:
-								popup(pro01_23,5);
-								popup(pro02_23,7);
-								rightMove(pro03_23,11);
-								leftMove(pro04_23,11);
-								//popup(img520,2);
-								break;
-								
-								
-								case 24:
-								leftMove(left01_23,20);
-								rightMove(rig03_23,20);
-								break;
-								
-								case 27:
-								rightMove(rig01_23,20);
-								rightMove(rig02_23,20);
-								rightMove(rig01_21,20);
-								break;
-								
-								case 30:
-								leftMove(left02_23,20);
-								rightMove(rig04_23,20);
-								break;
-								
-								case 35:
-								leftMove(left03_23,20);
-								rightMove(rig05_23,20);
-								break;
-								
-								//46s-->
-								case 42:
-								rightMove(rig01_46,20);
-								leftMove(left01_46,20);
-								rightMove(rig02_46,20);
-								leftMove(left02_46,20);
-								break;
-								
-								//1.00-->1.05
-								//popup(pro07,60,65);
-								//rightMove(rig02,60,65);
-								//leftMove(left02,60,65);
-								case 50:
-								rightMove(rig01_58,15);
-								leftMove(left01_58,15);
-								//rightMove(rig02_58,15);
-								leftMove(left02_58,15);
-								break;
-								
-								case 55:
-								popup(pro07,10);
-								rightMove(rig02,12);
-								leftMove(left02,15);
-								//rightMove(rig01_55,10);
-								leftMove(left01_55,10);
-								/* rightMove(rig01_58,10);
-								leftMove(left01_58,10);
-								rightMove(rig02_58,10);
-								leftMove(left02_58,10); */
-								break
-								
-								case 59:
-								rightMove(rig01_50,10);
-								leftMove(left01_50,10);
-								break;
-								//1.05-->1.26
-								/* rightAllMove(objr4,62,86);
-								leftAllMove(objl4,62,86); */
-								/* rightMove(box4,58,86);
-								leftMove(box8,58,90);
-								rightMove(box3,58,86);
-								leftMove(box7,56,86);
-								rightMove(box2,58,86);
-								leftMove(box6,56,86);
-								rightMove(box1,58,86);
-								leftMove(box5,56,86); */
-								case 64:
-								leftMove(box5,23);
-								leftMove(box6,23);
-								break;
-								
-								case 63:
-								rightMove(box1,23);
-								rightMove(box2,23);
-								rightMove(box3,23);
-								rightMove(box4,23);
-								break;
-								
-								case 65:
-								leftMove(box8,35);
-								leftMove(box7,23);
-								break;
-								
-								//var objriglove = [love0101,love0102,love0201,love0203];
-								//var objleftlove = [love0103,love0104,love0202,love0204];
-								
-								case 85:
-								rightMove(love0101,33);
-								rightMove(love0102,33);
-								leftMove(love0103,28);
-								leftMove(love0104,28);
-								break;
-								
-								case 109:
-								popup(pro01_109,16);
-								leftMove(left01_109,15);
-								rightMove(rig01_109,20);
-								leftMove(left02_109,15);
-								rightMove(rig04_109,20);
-								break;
-								
-								case 120:
-								leftMove(left03_109,20);
-								rightMove(rig02_109,20);
-								leftMove(left04_109,15);
-								rightMove(rig03_109,20);
-								break;
-								
-								case 126:
-								popup(pro02_109,11);
-								break;
-								
-								case 132:
-								rightMove(love0201,24);
-								leftMove(love0202,19);
-								rightMove(love0203,24);
-								leftMove(love0204,19);
-								break;
-								
-								//**************************************************
-								
-								/* case 130:
-								leftMove(left01_136,20);
-								rightMove(rig03_136,20);
-								break;
-								
-								case 133:
-								rightMove(rig01_136,20);
-								rightMove(rig02_136,20);
-								//rightMove(rig01_21,20);
-								break;
-								
-								case 136:
-								leftMove(left02_136,20);
-								rightMove(rig04_136,20);
-								break;
-								
-								case 145:
-								leftMove(left03_136,20);
-								rightMove(rig05_136,20);
-								break; */
-								
-								//************************************************************
-								
-								/* case 135:
-								rightMove(rig01_58,15);
-								leftMove(left01_58,15);
-								//rightMove(rig02_58,15);
-								leftMove(left02_58,15);
-								break;
-								
-								case 138:
-								popup(pro01_140,10);
-								rightMove(rig01_140,15);
-								leftMove(left01_140,12);
-								rightMove(rig01_55,10);
-								leftMove(left01_55,10);
-								break;
-								
-								case 142:
-								rightMove(rig01_50,10);
-								leftMove(left01_50,10);
-								break; */
-								
-								
-								case 148:
-								leftMove(box5,20);
-								leftMove(box6,20);
-								break;
-								
-								case 146:
-								rightMove(box1,20);
-								rightMove(box2,20);
-								rightMove(box3,20);
-								rightMove(box4,20);
-								break;
-								
-								case 149:
-								leftMove(box8,30);
-								leftMove(box7,20);
-								break;
-								
-								//*****************************************************
-								//2.51-->
-								case 170:
-								leftMove(box501,20);
-								leftMove(box601,20);
-								break;
-								
-								case 169:
-								rightMove(box101,20);
-								rightMove(box201,20);
-								rightMove(box301,20);
-								rightMove(box401,20);
-								break;
-								
-								case 171:
-								leftMove(box801,30);
-								leftMove(box701,20);
-								break;
-								
-								//************************************************************
-								
-								case 182:
-								leftMove(box5,20);
-								leftMove(box6,20);
-								break;
-								
-								case 183:
-								leftMove(box8,30);
-								leftMove(box7,20);
-								break;
-								
-								case 205:
-								popup(pro01_final,25);
-								rightMove(rig01_final,25);
-								leftMove(left01_final,30);
-								
-								
-								default:
-								break;
-								
-								
-							}
+<script type="text/javascript">
 
-						},1000);
-						
-						
-						
-						
-						
-						//43s
-						//popup(pro05,44,49);
-						//popup(pro06,47,49);
-					});
-					
-					//点击停止弹幕按钮
-					btn02.onclick = function(){
-						
-						//关闭音乐
-						audio.pause();
-						
-						clearInterval(timer);
-					};
-						
-				};
-				
-				danmuMove(obj);
-				
-			//*******************************************************************	
-				
+	window.onload = function(){
+
+		//创建一个类DanMu
+		function DanMu(name,str,size,top,color){
+			this.name = name;
+			this.str = str;
+			this.size = size;
+			this.top = top;
+			this.color = color;
+			//同时创建一个div
+			var bo = document.getElementById("bo");
+			var div = document.createElement("div");
+			div.id = this.name;
+			div.innerHTML = str;
+			div.style.color = this.color;
+			div.style.fontSize = size + "px";
+			div.style.top = top + "px";
+			div.style.whiteSpace = "nowrap";
+			div.style.fontFamily = "simhei,arial,helvetica,sans-serif";
+			div.style.fontWeight = "bold";
+			div.style.position = "absolute";
+			//div.style.left = 0 - div.offsetWidth + "px";
+			bo.appendChild(div);
+		}
+
+		var div = document.getElementById("content");
+		var btn01 = document.getElementById("btn01");
+		var btn02 = document.getElementById("btn02");
+		var bo = document.getElementById("bo");
+		var img = document.getElementById("img");
+		//img.style.width = document.body.clientWidth;
+		bo.style.offsetWidth = 0 + "px";
+
+		//控制音乐
+		var audio = document.getElementById("audios");
+
+		//延时函数
+		function delay(time){
+			var count = 0;
+			var timetor = setInterval(function(){
+				count++;
+				if(count > time){
+					clearInterval(timetor);
+				}
+			},1000);
+		};
+
+		//弹出函数
+		function popup(obj,time){
+			var count = 0;
+			var timetor = setInterval(function(){
+				count++;
+				//console.log(count);
+				if(count <= time){
+					document.getElementById(obj.name).style.left = document.body.offsetWidth/2 - document.getElementById(obj.name).offsetWidth/2 + "px";
+				}else{
+					document.getElementById(obj.name).style.left =  0 - document.getElementById(obj.name).offsetWidth + "px";
+					clearInterval(timetor);
+				}
+			},1000);
+		};
+
+		//向右移动弹幕
+		function rightMove(obj,time){
+			var count = 0;
+			var len = parseInt((2*document.getElementById(obj.name).offsetWidth + document.body.offsetWidth)/(time*20))+1;
+			var timetor = setInterval(function(){
+				count++;
+				//console.log("rightcount = "+count);
+				if(parseInt(document.getElementById(obj.name).style.left) <= document.body.offsetWidth + document.getElementById(obj.name).offsetWidth){
+					document.getElementById(obj.name).style.left = count*len - document.getElementById(obj.name).offsetWidth + "px";
+					//console.log("right = "+document.getElementById(obj.name).style.left);
+					//console.log(document.getElementById(obj.name).style.left);
+				}else if(parseInt(document.getElementById(obj.name).style.left) > document.body.offsetWidth + document.getElementById(obj.name).offsetWidth){
+					document.getElementById(obj.name).style.left =  0 - document.getElementById(obj.name).offsetWidth + "px";
+					//console.log("right = "+document.getElementById(obj.name).style.left);
+					clearInterval(timetor);
+				}else{
+					document.getElementById(obj.name).style.left =  0 - document.getElementById(obj.name).offsetWidth + "px";
+					//console.log("right = "+document.getElementById(obj.name).style.left);
+				}
+			},50);
+		};
+		//全部向右移动弹幕
+		function rightAllMove(obj,time){
+			var count = 0;
+			var len = parseInt((2*document.getElementById(obj.name).offsetWidth + document.body.offsetWidth)/(time*20))+1;
+			var timetor = setInterval(function(){
+				count++;
+				for(var i=0;i<obj.length;i++){
+					if(count*50 <= time*1000){
+						document.getElementById(obj[i].name).style.left = count*len - document.getElementById(obj[i].name).offsetWidth + "px";
+						console.log(document.getElementById(obj[i].name).style.left);
+					}else{
+						document.getElementById(obj[i].name).style.left =  0 - document.getElementById(obj[i].name).offsetWidth + "px";
+						clearInterval(timetor);
+					}
+				}
+			},50);
+		};
+
+
+		//向左移动的弹幕
+		function leftMove(obj,time){
+			var count = 0;
+			var len = parseInt((2*document.getElementById(obj.name).offsetWidth + document.body.offsetWidth)/(time*20))+1;
+			console.log(len);
+			var timetor = setInterval(function(){
+				count++;
+				//console.log("leftcount = "+count);
+				if(parseInt(document.getElementById(obj.name).style.left) >= 0 - 2*document.body.offsetWidth){
+					document.getElementById(obj.name).style.left = document.body.offsetWidth - count*len + "px";
+					//console.log("left = "+document.getElementById(obj.name).style.left);
+				}else if(parseInt(document.getElementById(obj.name).style.left) < 0 - 2*document.body.offsetWidth){
+					document.getElementById(obj.name).style.left = document.body.offsetWidth + "px";
+					//console.log("left = "+document.getElementById(obj.name).style.left);
+					clearInterval(timetor);
+				}else{
+					document.getElementById(obj.name).style.left = document.body.offsetWidth + "px";
+					//console.log("left = "+document.getElementById(obj.name).style.left);
+				}
+			},50);
+		};
+		//全部向左移动弹幕
+		function leftAllMove(obj,time){
+			var count = 0;
+			var len = parseInt((2*document.getElementById(obj.name).offsetWidth + document.body.offsetWidth)/(time*20))+1;
+			var timetor = setInterval(function(){
+				count++;
+				//console.log("leftcount = "+count);
+				for(var i=0;i<obj.length;i++){
+					if(count*50 <= time*1000){
+						document.getElementById(obj[i].name).style.left = document.body.offsetWidth - count*len + "px";
+						//console.log("left = "+document.getElementById(obj.name).style.left);
+						//console.log(document.getElementById(obj[i].name).style.left);
+					}else{
+						document.getElementById(obj[i].name).style.left = document.body.offsetWidth + "px";
+						//console.log("left = "+document.getElementById(obj.name).style.left);
+						clearInterval(timetor);
+					}
+				}
+			},50);
+		};
+
+		//开场23s开场白-->pro
+		//中间弹出的弹幕
+		var pro01 = new DanMu("pro01","我的宝贝钟玲",100,50,"aqua");
+		var pro02 = new DanMu("pro02","你说过想要从一束花来开始",70,430,"#50aaec");
+		var pro03 = new DanMu("pro03","但现在我只能这样给你了",80,160,"blueviolet");
+		var pro04 = new DanMu("pro04","亲爱的做我女朋友吧~",100,275,"rgb(254,138,198)");
+		var pro05 = new DanMu("pro05","",120,80,"aqua");
+		var pro06 = new DanMu("pro06","",120,200,"rgb(236,89,204)");
+
+		//24s-->
+		var pro01_23 = new DanMu("pro01_23","亲爱的",120,50,"aqua");
+		var pro02_23 = new DanMu("pro02_23","LOVE",250,180,"rgb(254,138,198)");
+		var pro03_23 = new DanMu("pro03_23","I",250,180,"rgb(230,86,210)");
+		var pro04_23 = new DanMu("pro04_23","U",250,180,"rgb(230,86,210)");
+
+		var objpro_23 = [pro01_23,pro02_23,pro03_23,pro04_23];
+
+
+		//23s到43s弹幕
+		var rig01 = new DanMu("rig01","可能我很笨",80,80,"aqua");
+		var left01 = new DanMu("left01","我知道我不会甜言蜜语",100,150,"rgb(236,89,204)");
+		var rig01_21 = new DanMu("rig01_21","但是我会用行动证明一切",100,500,"rgb(143,54,224)");
+		var objrig_21 = [rig01_21];
+
+
+		var rig01_23 = new DanMu("rig01_23","情商又低",100,80,"rgb(73,212,242)");
+		var left01_23 = new DanMu("left01_23","",100,200,"rgb(73,212,242)");
+		var rig02_23 = new DanMu("rig02_23","",100,400,"aqua");
+		var rig03_23 = new DanMu("rig03_23","我会牵着你的手",100,300,"rgb(254,138,198)");
+		var rig04_23 = new DanMu("rig04_23","",100,80,"rgb(254,138,198)");
+		var left02_23 = new DanMu("left02_23","陪伴你一路精彩下去",100,180,"yellow");
+		var rig05_23 = new DanMu("rig05_23","",100,400,"rgb(254,138,198)");
+		var left03_23 = new DanMu("left03_23","守护你生命里的精彩",100,300,"aqua");
+
+		var objrig_23 = [rig01_23,rig02_23,rig03_23,rig04_23,rig05_23];
+		var objleft_23 = [left01_23,left02_23,left03_23];
+
+		//46s-->
+		var rig01_46 = new DanMu("rig01_46","想过很多种方式跟你表白",100,80,"rgb(254,138,198)");
+		var left01_46 = new DanMu("left01_46","但是拿起手机又不敢..",120,200,"rgb(226,250,4)");
+		var rig02_46 = new DanMu("rig02_46","但我就是喜欢你~",100,400,"rgb(254,138,198)");
+		var left02_46 = new DanMu("left02_46","不需要什么理由",100,520,"rgb(122,235,93)");
+
+		var objrig_46 = [rig01_46,rig02_46];
+		var objleft_46 = [left01_46,left02_46];
+
+		//50s-->
+		var rig01_50 = new DanMu("rig01_50","拥有你就拥有全世界",100,400,"rgb(184,140,237)");
+		var left01_50 = new DanMu("left01_50","拥有你就拥有全世界",80,500,"rgb(254,138,198)");
+
+		var objrig_50 = [rig01_50];
+		var objleft_50 = [left01_50];
+
+		//55s-->
+		var rig01_55 = new DanMu("rig01_55","就拥有全世界",100,150,"rgb(184,140,237)");
+		var left01_55 = new DanMu("left01_55","你就是全世界",100,520,"rgb(184,140,237)");
+
+		var objrig_55 = [rig01_55];
+		var objleft_55 = [left01_55];
+
+		//58s-->
+		var rig01_58 = new DanMu("rig01_58","你就是我的全世界~",80,410,"rgb(254,138,198)");
+		var rig02_58 = new DanMu("rig02_58","你就是我的唯一~",100,80,"rgb(229,79,153)");
+		var left01_58 = new DanMu("left01_58","全世界",100,150,"aqua");
+		var left02_58 = new DanMu("left02_58","就拥有全世界",80,350,"rgb(254,252,43)");
+
+		var objrig_58 = [rig01_58,rig02_58];
+		var objleft_58 = [left01_58,left02_58];
+
+		//1.00-->1.05
+		var pro07 = new DanMu("pro07","我的心在告诉我~",100,20,"aqua");
+		var rig02 = new DanMu("rig02","拥有你",130,150,"rgb(184,140,237)");
+		var left02 = new DanMu("left02","就拥有全世界",120,250,"rgb(246,158,204)");
+
+		//1.26-->
+		var love0101 = new DanMu("love0101","我真的喜欢你~",100,80,"rgb(113,254,236)");
+		var love0102 = new DanMu("love0102","能遇见你真好~",120,350,"rgb(254,254,6)");
+		var love0103 = new DanMu("love0103","真的喜欢你呀~",100,500,"rgb(3,220,81)");
+		var love0104 = new DanMu("love0104","能认识你真好~",150,200,"rgb(254,138,198)");
+		var love0201 = new DanMu("love0201","给你告白气球~~",100,180,"rgb(254,254,16)");
+		var love0202 = new DanMu("love0202","给你告白气球~~",150,300,"rgb(251,46,153)");
+		var love0203 = new DanMu("love0203","给你告白气球~~",100,500,"rgb(160,69,232)");
+		var love0204 = new DanMu("love0204","给你告白气球~~",120,30,"rgb(123,229,81)");
+		/* var love0301 = new DanMu("love0301","快点喜欢我吧(^3^)",70,50,"aqua");
+		var love0302 = new DanMu("love0302","快点喜欢我吧(^3^)",70,150,"rgb(252,0,255)");
+		var love0303 = new DanMu("love0303","快点喜欢我吧(^3^)",70,350,"blueviolet");
+		var love0304 = new DanMu("love0304","快点喜欢我吧(^3^)",70,250,"rgb(236,89,204)"); */
+		var objriglove = [love0101,love0102,love0201,love0203];
+		var objleftlove = [love0103,love0104,love0202,love0204];
+
+
+		//1.49s-->
+		var pro01_109 = new DanMu("pro01_109","亲爱的~",100,50,"rgb(254,138,198)");
+		var left01_109 = new DanMu("left01_109","我知道现在我们异地有点难",100,175,"rgb(248,234,65)");
+		var rig01_109 = new DanMu("rig01_109","但是我希望我们一起去克服",120,300,"rgb(175,129,238)");
+		var left02_109 = new DanMu("left02_109","我愿意为你去做每一件能让你开心快乐的事",80,450,"rgb(141,227,74)");
+		var rig04_109 = new DanMu("rig04_109","",80,540,"rgb(170,209,242)");
+
+		var pro02_109 = new DanMu("pro02_109","我会带你去所有你想去的地方",100,50,"rgb(226,77,197)");
+		var rig02_109 = new DanMu("rig02_109","历经你生命中所有的点点滴滴",100,175,"rgb(202,126,248)");
+		var left03_109 = new DanMu("left03_109","",120,300,"rgb(247,84,67)");
+		var rig03_109 = new DanMu("rig03_109","陪你闹",80,450,"rgb(157,197,239)");
+		var left04_109 = new DanMu("left04_109","看你笑",80,540,"rgb(165,242,2)");
+
+		var objrig_109 = [rig01_109,rig02_109,rig03_109,rig04_109];
+		var objleft_109 = [left01_109,left02_109,left03_109,left04_109];
+		var objpro_109 = [pro01_109,pro02_109];
+
+
+		//2.16s-->
+		var rig01_136 = new DanMu("rig01_136","我经常梦见你",100,80,"rgb(73,212,242)");
+		var left01_136 = new DanMu("left01_136","有好多次脑海中..",100,200,"rgb(73,212,242)");
+		var rig02_136 = new DanMu("rig02_136","",100,400,"aqua");
+		var rig03_136 = new DanMu("rig03_136","都幻想着能和你一起约会~",100,300,"rgb(254,138,198)");
+		var rig04_136 = new DanMu("rig04_136","",100,80,"rgb(254,138,198)");
+		var left02_136 = new DanMu("left02_136","希望我们能快点见面",100,180,"yellow");
+		var rig05_136 = new DanMu("rig05_136","莫PUA快给我开边境!!!",100,400,"rgb(254,138,198)");
+		var left03_136 = new DanMu("left03_136","",100,300,"aqua");
+
+		var objrig_136 = [rig01_136,rig02_136,rig03_136,rig04_136,rig05_136];
+		var objleft_136 = [left01_136,left02_136,left03_136];
+
+
+		//添加弹幕,右方向弹幕或者左方向弹幕
+		var box1 = new DanMu("box1","亲爱的~",100,30,"aqua");
+		var box2 = new DanMu("box2","爱上你~",150,150,"rgb(236,89,204)");
+		var box3 = new DanMu("box3","从那天起~~",100,500,"blueviolet");
+		var box4 = new DanMu("box4","甜蜜的很轻易~~",150,330,"yellow");
+		var box5 = new DanMu("box5","亲爱的~",120,70,"rgb(254,252,43)");
+		var box6 = new DanMu("box6","别任性~",100,390,"rgb(0,255,255)");
+		var box7 = new DanMu("box7","你的眼睛~~",100,530,"rgb(166,241,0)");
+		var box8 = new DanMu("box8","在说我愿意~~",150,200,"rgb(236,89,204)");
+		var objr4 = [box1,box2,box3,box4];
+		var objl4 = [box5,box6,box7,box8];
+
+		//2.52
+		var box101 = new DanMu("box101","亲爱的~",100,30,"aqua");
+		var box201 = new DanMu("box201","爱上你~",150,150,"rgb(236,89,204)");
+		var box301 = new DanMu("box301","恋爱日记~~",100,500,"blueviolet");
+		var box401 = new DanMu("box401","飘香水的记忆(^-^)~~",150,330,"yellow");
+		var box501 = new DanMu("box501","你中意~",120,70,"rgb(254,252,43)");
+		var box601 = new DanMu("box601","的梦境~",100,390,"rgb(0,255,255)");
+		var box701 = new DanMu("box701","全都有你~~",100,530,"rgb(166,241,0)");
+		var box801 = new DanMu("box801","搅拌在一起😘~~",150,200,"rgb(236,89,204)");
+		var objr401 = [box101,box201,box301,box401];
+		var objl401 = [box501,box601,box701,box801];
+
+		//140s-->
+		var pro01_140 = new DanMu("pro01_140","对我来说~",100,50,"rgb(156,198,238)");
+		var rig01_140 = new DanMu("rig01_140","拥有你~",120,200,"rgb(184,140,237)");
+		var left01_140 = new DanMu("left01_140","就拥有全世界",150,330,"rgb(246,158,204)");
+
+		var objrig_140 = [rig01_140];
+		var objleft_140 = [left01_140];
+		var objpro_140 = [pro01_140];
+
+		//console.log(document.getElementById("box1").offsetWidth);
+
+		//finally-->
+		var pro01_final = new DanMu("pro01_final","亲爱的~",100,50,"rgb(237,83,156)");
+		var rig01_final = new DanMu("rig01_final","视频的时候我太紧张🤦‍♂️~",100,200,"rgb(199,119,252)");
+		var left01_final = new DanMu("left01_final","那是因为我喜欢你❤️~",100,350,"rgb(221,249,7)");
+
+		var objpro_final = [pro01_final];
+		var objrig_final = [rig01_final];
+		var objleft_final = [left01_final];
+
+
+		//定义右方向弹幕
+		var obj1 = [box1,box2,box3,box4,rig01,rig02];
+
+		//取右方向弹幕的最长弹幕
+		var rightmax = 0;
+		for(var i=0;i<obj1.length-1;i++){
+			rightmax = document.getElementById(obj1[0].name).offsetWidth;
+			if(document.getElementById(obj1[i].name).offsetWidth < document.getElementById(obj1[i+1].name).offsetWidth){
+				rightmax = document.getElementById(obj1[i+1].name).offsetWidth;
+			}
+		}
+		//取右方向最短弹幕
+		var rightmin = 0;
+		for(var i=0;i<obj1.length-1;i++){
+			rightmin = document.getElementById(obj1[0].name).offsetWidth;
+			if(document.getElementById(obj1[i].name).offsetWidth > document.getElementById(obj1[i+1].name).offsetWidth){
+				rightmin = document.getElementById(obj1[i+1].name).offsetWidth;
+			}
+		}
+		/* console.log(rightmax);
+		console.log(rightmin);
+		console.log(rightmax-rightmin); */
+
+
+		//定义左方向弹幕
+		var obj2 = [box5,box6,box7,box8,left01,left02];
+
+		//取左方向最长的弹幕
+		var leftmax = 0;
+		for(var i=0;i<obj2.length-1;i++){
+			leftmax = document.getElementById(obj2[0].name).offsetWidth;
+			if(document.getElementById(obj2[i].name).offsetWidth < document.getElementById(obj2[i+1].name).offsetWidth){
+				leftmax = document.getElementById(obj2[i+1].name).offsetWidth;
+			}
+		}
+		//取左方向最短弹幕
+		var leftmin = 0;
+		for(var i=0;i<obj2.length-1;i++){
+			leftmin = document.getElementById(obj2[0].name).offsetWidth;
+			if(document.getElementById(obj2[i].name).offsetWidth > document.getElementById(obj2[i+1].name).offsetWidth){
+				leftmin = document.getElementById(obj2[i+1].name).offsetWidth;
+			}
+		}
+		/* console.log(leftmax);
+		console.log(leftmin);
+		console.log(leftmax-leftmin); */
+
+		//定义中间弹幕
+		var obj3 = [pro01,pro02,pro03,pro04,pro05,pro06,pro07];
+
+		//创建一个总弹幕数组来封装右方向弹幕和左方向弹幕
+		var obj = [obj1,obj2,obj3];
+
+		//设置按钮位置
+		btn01.style.left = document.body.clientWidth/2 - btn01.clientWidth + "px";
+		//btn01.style.top = document.body.clientHeight - btn01.clientHeight + "px";
+		btn02.style.left = document.body.clientWidth/2 + "px";
+
+		//初始化函数
+		//初始化右方向弹幕
+		function initright(obj){
+			for(var i=0;i<obj.length;i++){
+				document.getElementById(obj[i].name).style.marginLeft = 0 - document.getElementById(obj[i].name).offsetWidth + "px";
+				//console.log(document.getElementById(obj[i].name).style.marginLeft);
+			}
+		};
+
+		//初始化左方向弹幕
+		function initleft(obj){
+			for(var i=0;i<obj.length;i++){
+				document.getElementById(obj[i].name).style.marginLeft = document.body.offsetWidth + "px";
+				//console.log(document.getElementById(obj[i].name).style.marginLeft);
+			}
+		};
+
+		//初始化中间弹出的弹幕
+		function initmid(obj){
+			for(var i=0;i<obj.length;i++){
+				document.getElementById(obj[i].name).style.left = 0 - document.getElementById(obj[i].name).offsetWidth + "px";
+			}
+		};
+
+		//***********************************************************************
+
+
+		//定义弹幕函数
+		function danmuMove(obj){
+
+			//初始化弹幕
+			initright(obj[0]);
+			initleft(obj[1]);
+			initmid(obj[2]);
+			initright(objr4);
+			initleft(objl4);
+			initright(objrig_23);
+			initleft(objleft_23);
+			initright(objrig_21);
+			initright(objrig_46);
+			initleft(objleft_46);
+
+			initright(objrig_50);
+			initleft(objleft_50);
+
+			initright(objrig_55);
+			initleft(objleft_55);
+
+			initright(objrig_58);
+			initleft(objleft_58);
+			initmid(objpro_23);
+
+			initright(objriglove);
+			initleft(objleftlove);
+
+			initright(objrig_109);
+			initleft(objleft_109);
+			initmid(objpro_109);
+
+			initright(objrig_136);
+			initleft(objleft_136);
+
+			initright(objrig_140);
+			initleft(objleft_140);
+			initmid(objpro_140);
+
+			initright(objr401);
+			initleft(objl401);
+
+			initright(objrig_final);
+			initleft(objleft_final);
+			initmid(objpro_final);
+
+			var timer;
+			//点击开始弹幕按钮
+			div.addEventListener('click', function (event) {
+
+				//播放音乐
+				audio.play();
+
+				clearInterval(timer);
+
+				var count1 = 0;
+				var count2 = 0;
+				var count = 0;
+
+				timer = setInterval(function(){
+
+					count++;
+
+					switch(count){
+
+						//开场前23s开场白
+						case 3:
+						popup(pro01,20);
+						break;
+						case 8:
+						popup(pro02,15);
+						break;
+						case 15:
+						popup(pro03,8);
+						break;
+						case 20:
+						popup(pro04,3);
+						break;
+
+						//24s-->42s
+						//会有小延迟,要提前3s
+						case 21:
+						rightMove(rig01,19);
+						leftMove(left01,19);
+						break;
+
+						case 23:
+						popup(pro01_23,5);
+						popup(pro02_23,7);
+						rightMove(pro03_23,11);
+						leftMove(pro04_23,11);
+						//popup(img520,2);
+						break;
+
+
+						case 24:
+						leftMove(left01_23,20);
+						rightMove(rig03_23,20);
+						break;
+
+						case 27:
+						rightMove(rig01_23,20);
+						rightMove(rig02_23,20);
+						rightMove(rig01_21,20);
+						break;
+
+						case 30:
+						leftMove(left02_23,20);
+						rightMove(rig04_23,20);
+						break;
+
+						case 35:
+						leftMove(left03_23,20);
+						rightMove(rig05_23,20);
+						break;
+
+						//46s-->
+						case 42:
+						rightMove(rig01_46,20);
+						leftMove(left01_46,20);
+						rightMove(rig02_46,20);
+						leftMove(left02_46,20);
+						break;
+
+						//1.00-->1.05
+						//popup(pro07,60,65);
+						//rightMove(rig02,60,65);
+						//leftMove(left02,60,65);
+						case 50:
+						rightMove(rig01_58,15);
+						leftMove(left01_58,15);
+						//rightMove(rig02_58,15);
+						leftMove(left02_58,15);
+						break;
+
+						case 55:
+						popup(pro07,10);
+						rightMove(rig02,12);
+						leftMove(left02,15);
+						//rightMove(rig01_55,10);
+						leftMove(left01_55,10);
+						/* rightMove(rig01_58,10);
+						leftMove(left01_58,10);
+						rightMove(rig02_58,10);
+						leftMove(left02_58,10); */
+						break
+
+						case 59:
+						rightMove(rig01_50,10);
+						leftMove(left01_50,10);
+						break;
+						//1.05-->1.26
+						/* rightAllMove(objr4,62,86);
+						leftAllMove(objl4,62,86); */
+						/* rightMove(box4,58,86);
+						leftMove(box8,58,90);
+						rightMove(box3,58,86);
+						leftMove(box7,56,86);
+						rightMove(box2,58,86);
+						leftMove(box6,56,86);
+						rightMove(box1,58,86);
+						leftMove(box5,56,86); */
+						case 64:
+						leftMove(box5,23);
+						leftMove(box6,23);
+						break;
+
+						case 63:
+						rightMove(box1,23);
+						rightMove(box2,23);
+						rightMove(box3,23);
+						rightMove(box4,23);
+						break;
+
+						case 65:
+						leftMove(box8,35);
+						leftMove(box7,23);
+						break;
+
+						//var objriglove = [love0101,love0102,love0201,love0203];
+						//var objleftlove = [love0103,love0104,love0202,love0204];
+
+						case 85:
+						rightMove(love0101,33);
+						rightMove(love0102,33);
+						leftMove(love0103,28);
+						leftMove(love0104,28);
+						break;
+
+						case 109:
+						popup(pro01_109,16);
+						leftMove(left01_109,15);
+						rightMove(rig01_109,20);
+						leftMove(left02_109,15);
+						rightMove(rig04_109,20);
+						break;
+
+						case 120:
+						leftMove(left03_109,20);
+						rightMove(rig02_109,20);
+						leftMove(left04_109,15);
+						rightMove(rig03_109,20);
+						break;
+
+						case 126:
+						popup(pro02_109,11);
+						break;
+
+						case 132:
+						rightMove(love0201,24);
+						leftMove(love0202,19);
+						rightMove(love0203,24);
+						leftMove(love0204,19);
+						break;
+
+						//**************************************************
+
+						/* case 130:
+						leftMove(left01_136,20);
+						rightMove(rig03_136,20);
+						break;
+
+						case 133:
+						rightMove(rig01_136,20);
+						rightMove(rig02_136,20);
+						//rightMove(rig01_21,20);
+						break;
+
+						case 136:
+						leftMove(left02_136,20);
+						rightMove(rig04_136,20);
+						break;
+
+						case 145:
+						leftMove(left03_136,20);
+						rightMove(rig05_136,20);
+						break; */
+
+						//************************************************************
+
+						/* case 135:
+						rightMove(rig01_58,15);
+						leftMove(left01_58,15);
+						//rightMove(rig02_58,15);
+						leftMove(left02_58,15);
+						break;
+
+						case 138:
+						popup(pro01_140,10);
+						rightMove(rig01_140,15);
+						leftMove(left01_140,12);
+						rightMove(rig01_55,10);
+						leftMove(left01_55,10);
+						break;
+
+						case 142:
+						rightMove(rig01_50,10);
+						leftMove(left01_50,10);
+						break; */
+
+
+						case 148:
+						leftMove(box5,20);
+						leftMove(box6,20);
+						break;
+
+						case 146:
+						rightMove(box1,20);
+						rightMove(box2,20);
+						rightMove(box3,20);
+						rightMove(box4,20);
+						break;
+
+						case 149:
+						leftMove(box8,30);
+						leftMove(box7,20);
+						break;
+
+						//*****************************************************
+						//2.51-->
+						case 170:
+						leftMove(box501,20);
+						leftMove(box601,20);
+						break;
+
+						case 169:
+						rightMove(box101,20);
+						rightMove(box201,20);
+						rightMove(box301,20);
+						rightMove(box401,20);
+						break;
+
+						case 171:
+						leftMove(box801,30);
+						leftMove(box701,20);
+						break;
+
+						//************************************************************
+
+						case 182:
+						leftMove(box5,20);
+						leftMove(box6,20);
+						break;
+
+						case 183:
+						leftMove(box8,30);
+						leftMove(box7,20);
+						break;
+
+						case 205:
+						popup(pro01_final,25);
+						rightMove(rig01_final,25);
+						leftMove(left01_final,30);
+
+
+						default:
+						break;
+
+
+					}
+
+				},1000);
+
+
+
+
+
+				//43s
+				//popup(pro05,44,49);
+				//popup(pro06,47,49);
+			});
+
+			//点击停止弹幕按钮
+			btn02.onclick = function(){
+
+				//关闭音乐
+				audio.pause();
+
+				clearInterval(timer);
 			};
-			
-		</script>
-		<style type="text/css">
-			
-			#bo{
-				/* position: fixed; */
-				white-space: ;
-				/* background-color: rgb(251,4,132); */
-				overflow: hidden;
-			}
-			
-			
-			#btn01{
-				position: absolute;
-			}
-			#btn02{
-				position: absolute;
-			}
-					
-		</style>
 
+		};
+
+		danmuMove(obj);
+
+	//*******************************************************************	
+
+	};
+
+</script>
+<style type="text/css">
+
+	#bo{
+		/* position: fixed; */
+		white-space: ;
+		/* background-color: rgb(251,4,132); */
+		overflow: hidden;
+	}
+
+
+	#btn01{
+		position: absolute;
+	}
+	#btn02{
+		position: absolute;
+	}
+
+</style>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J2WVG1B926"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J2WVG1B926');
+</script>
+	
 </head>
 <body id="bo">
 	<div id='head'>
